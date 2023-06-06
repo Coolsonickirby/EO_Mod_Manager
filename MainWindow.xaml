@@ -1,0 +1,36 @@
+﻿<Window x:Class="EO_Mod_Manager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EO_Mod_Manager"
+        mc:Ignorable="d"
+        Title="EO Mod Manager" Height="483" Width="437"
+        ResizeMode="NoResize" SizeToContent="WidthAndHeight"
+        >
+    <StackPanel Margin="5,0,5,5">
+        <Label x:Name="label" Content="Game:"/>
+        <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" Width="421" Margin="0,0,0,10" SelectionChanged="cboGames_SelectionChanged"/>
+        <DockPanel Margin="0,0,0,10">
+            <DataGrid x:Name="dataMods" Width="380" Height="324">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="" Binding="{Binding enabled}" CanUserSort="False" Width="*"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" CanUserSort="False" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Version" Binding="{Binding Version}" CanUserSort="False" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Author" Binding="{Binding Author}" CanUserSort="False" IsReadOnly="True" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel>
+                <Button x:Name="btnMoveUp" Content="▲" Height="162" Width="20" Click="btnMoveUp_Click"/>
+                <Button x:Name="btnMoveDown" Content="▼" Height="152" Width="20" Click="btnMoveDown_Click" Margin="0,10,0,0"/>
+            </StackPanel>
+        </DockPanel>
+
+        <DockPanel>
+            <Button x:Name="btnCreate" Content="Create Mod" Height="25" Width="112" Margin="6,0,5,0" Click="btnCreate_Click"/>
+            <Button x:Name="btnSave" Content="Save" Height="25" Width="124" Margin="0,0,5,0" Click="btnSave_Click" />
+            <Button x:Name="btnSaveAndPlay" Content="Save &amp; Play" Height="25" Width="124" Click="btnSaveAndPlay_Click"/>
+            <Button x:Name="btnSettings" Content="⚙️" Width="32" Click="btnSettings_Click" />
+        </DockPanel>
+    </StackPanel>
+</Window>

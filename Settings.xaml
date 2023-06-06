@@ -1,0 +1,21 @@
+﻿<Window x:Class="EO_Mod_Manager.Settings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EO_Mod_Manager"
+        mc:Ignorable="d"
+        Title="Settings" Height="291" Width="367"
+        ResizeMode="NoResize"
+        >
+    <Grid>
+        <Label x:Name="lblEO1" Content="Etrian Odyssey HD Path:" HorizontalAlignment="Left" Margin="6,8,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtEO1" HorizontalAlignment="Center" Margin="0,34,0,0" Text="" TextWrapping="NoWrap" VerticalAlignment="Top" Width="339" TextChanged="txtEO1_TextChanged"/>
+        <Label x:Name="lblEO2" Content="Etrian Odyssey II HD Path:" HorizontalAlignment="Left" Margin="6,64,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtEO2" HorizontalAlignment="Center" Margin="0,90,0,0" Text="" TextWrapping="NoWrap" VerticalAlignment="Top" Width="339" TextChanged="txtEO2_TextChanged"/>
+        <Label x:Name="lblEO3" Content="Etrian Odyssey III HD Path:" HorizontalAlignment="Left" Margin="6,120,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtEO3" HorizontalAlignment="Center" Margin="0,146,0,0" Text="" TextWrapping="NoWrap" VerticalAlignment="Top" Width="339" TextChanged="txtEO3_TextChanged"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Margin="0,213,0,0" VerticalAlignment="Top" Width="339" Click="btnSave_Click"/>
+        <CheckBox x:Name="chkCloseWindow" Content="Close Window Automatically after Mods Installation" HorizontalAlignment="Left" Margin="14,182,0,0" VerticalAlignment="Top" Checked="chkCloseWindow_Checked"/>
+    </Grid>
+</Window>
