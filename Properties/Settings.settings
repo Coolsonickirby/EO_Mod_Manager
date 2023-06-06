@@ -12,7 +12,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="progress_close_status" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="EO1_EXE" Type="System.String" Scope="User">
       <Value Profile="(Default)">Etrian Odyssey.exe</Value>
