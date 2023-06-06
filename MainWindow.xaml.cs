@@ -65,7 +65,7 @@ namespace EO_Mod_Manager
             //});
 
             if(!OnePathSet()) // If no game path is set
-                ShowSettings();
+                ShowSettings(false);
             if (!OnePathSet()) // If no game path is set and we already asked the user for one but they refused, then just close
                 Environment.Exit(0);
 
@@ -167,13 +167,14 @@ namespace EO_Mod_Manager
             ShowSettings();
         }
 
-        private void ShowSettings()
+        private void ShowSettings(bool spawnOnThis = true)
         {
-            Settings settings = new Settings()
+            Settings settings = new Settings();
+            if (spawnOnThis)
             {
-                Owner = this,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
+                settings.Owner = this;
+                settings.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            }
             settings.ShowDialog();
         }
 

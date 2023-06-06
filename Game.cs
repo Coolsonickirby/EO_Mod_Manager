@@ -26,6 +26,8 @@ namespace EO_Mod_Manager
         {
             ObservableCollection<Mod> mods = new ObservableCollection<Mod>();
             string mods_path = Path.Combine(path, MODS_FOLDER);
+            if (!Directory.Exists(mods_path))
+                Directory.CreateDirectory(mods_path);
             foreach (var dir in Directory.EnumerateDirectories(mods_path))
             {
                 ModConfig mod_config = ModConfig.LoadFromModPath(dir);
