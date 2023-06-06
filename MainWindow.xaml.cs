@@ -89,6 +89,7 @@ namespace EO_Mod_Manager
                     GameFolderDataName = "Etrian Odyssey_Data",
                     GamePath = Properties.Settings.Default.EO1_Path,
                     GameExecutable = Properties.Settings.Default.EO1_EXE,
+                    Type = new FileInfo(System.IO.Path.Combine(Properties.Settings.Default.EO1_Path, "GameAssembly.dll")).Length > 100000000 ? Game.GameType.DRM : Game.GameType.NoDRM,
                     GameMods = Game.GetModsFromPath(Properties.Settings.Default.EO1_Path)
                 });
             if (Directory.Exists(Properties.Settings.Default.EO2_Path))
@@ -99,6 +100,7 @@ namespace EO_Mod_Manager
                     GameFolderDataName = "Etrian Odyssey 2_Data",
                     GamePath = Properties.Settings.Default.EO2_Path,
                     GameExecutable = Properties.Settings.Default.EO2_EXE,
+                    Type = new FileInfo(System.IO.Path.Combine(Properties.Settings.Default.EO2_Path, "GameAssembly.dll")).Length > 100000000 ? Game.GameType.DRM : Game.GameType.NoDRM,
                     GameMods = Game.GetModsFromPath(Properties.Settings.Default.EO2_Path)
                 });
             if (Directory.Exists(Properties.Settings.Default.EO3_Path))
@@ -109,9 +111,9 @@ namespace EO_Mod_Manager
                     GameFolderDataName = "Etrian Odyssey 3_Data",
                     GamePath = Properties.Settings.Default.EO3_Path,
                     GameExecutable = Properties.Settings.Default.EO3_EXE,
+                    Type = new FileInfo(System.IO.Path.Combine(Properties.Settings.Default.EO3_Path, "GameAssembly.dll")).Length > 100000000 ? Game.GameType.DRM : Game.GameType.NoDRM,
                     GameMods = Game.GetModsFromPath(Properties.Settings.Default.EO3_Path)
                 });
-
             foreach (Game game in games)
                 game.LoadDataFromKey();
         }

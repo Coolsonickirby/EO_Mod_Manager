@@ -7,11 +7,18 @@ using AssetsTools.NET;
 using AssetsTools.NET.Extra;
 using Force.Crc32;
 using System.Text.Json;
+using System.Windows;
 
 namespace EO_Mod_Manager
 {
     public class Game
     {
+        public enum GameType
+        {
+            NoDRM,
+            DRM
+        }
+
         private static string BACKUP_FOLDER = "backups";
         private static string MODS_FOLDER = "mods";
         private static List<string> PATHS_TO_IGNORE = new List<string>() { ModConfig.CONFIG_FILE, Game.MODS_FOLDER, Game.BACKUP_FOLDER };
@@ -20,30 +27,38 @@ namespace EO_Mod_Manager
         public string GamePath { get; set; }
         public string GameExecutable { get; set; }
         public string GameFolderDataName { get; set; }
+        public GameType Type { get; set; }
         public ObservableCollection<Mod> GameMods { get; set; }
         public IProgress<string> textProgress { get; set; }
         public static ObservableCollection<Mod> GetModsFromPath(string path)
         {
-            ObservableCollection<Mod> mods = new ObservableCollection<Mod>();
-            string mods_path = Path.Combine(path, MODS_FOLDER);
-            if (!Directory.Exists(mods_path))
-                Directory.CreateDirectory(mods_path);
-            foreach (var dir in Directory.EnumerateDirectories(mods_path))
+            try
             {
-                ModConfig mod_config = ModConfig.LoadFromModPath(dir);
-                if (mod_config == null)
-                    continue;
-                mods.Add(new Mod()
+                ObservableCollection<Mod> mods = new ObservableCollection<Mod>();
+                string mods_path = Path.Combine(path, MODS_FOLDER);
+                if (!Directory.Exists(mods_path))
+                    Directory.CreateDirectory(mods_path);
+                foreach (var dir in Directory.EnumerateDirectories(mods_path))
                 {
-                    Name = mod_config.name,
-                    Author = mod_config.author,
-                    Version = mod_config.version,
-                    Description = mod_config.description,
-                    mod_path = dir,
-                    folder_name = Path.GetFileName(dir)
-                });
+                    ModConfig mod_config = ModConfig.LoadFromModPath(dir);
+                    if (mod_config == null)
+                        continue;
+                    mods.Add(new Mod()
+                    {
+                        Name = mod_config.name,
+                        Author = mod_config.author,
+                        Version = mod_config.version,
+                        Description = mod_config.description,
+                        mod_path = dir,
+                        folder_name = Path.GetFileName(dir)
+                    });
+                }
+                return mods;
+            } catch (Exception e)
+            {
+                MessageBox.Show($"Ran into an exception when getting mods from {path}!\n\n{e.Message}");
+                return null;
             }
-            return mods;
         }
 
         public void LoadDataFromKey()
@@ -140,7 +155,7 @@ namespace EO_Mod_Manager
             {
                 if (Game.PATHS_TO_IGNORE.Contains(Path.GetFileName(file)))
                     continue;
-                string key = file.Substring(inital_mod_path.Length + 1);
+                string key = GetSourceFileFromDataPath(file.Substring(inital_mod_path.Length + 1));
                 if (!keyValuePairs.ContainsKey(key))
                     keyValuePairs.Add(key, new List<string>());
                 keyValuePairs[key].Add(file);
@@ -180,7 +195,6 @@ namespace EO_Mod_Manager
 
             var am = new AssetsManager();
 
-
             // Original bundle file
             var og_bun = am.LoadBundleFile(original);
 
@@ -192,7 +206,6 @@ namespace EO_Mod_Manager
 
             // Asset Index -> New Asset Replacer Object
             Dictionary<long, AssetsReplacer> idx_to_asset_replacement = new Dictionary<long, AssetsReplacer>();
-
 
             textProgress.Report("Adding original assets hashes to table...");
             foreach (var inf in og_assetInst.table.assetFileInfo)
@@ -299,6 +312,28 @@ namespace EO_Mod_Manager
                 this.GameMods.Add(mod);
         }
 
+        public string GetSourceFileFromDataPath(string data_path)
+        {
+            int idx;
+            switch (this.Type)
+            {
+                case GameType.DRM:
+                    idx = Tables.NO_DRM_FILE_TABLE.IndexOf(data_path);
+                    if (idx != -1)
+                        return Tables.DRM_FILE_TABLE[idx];
+                    else
+                        return data_path;
+                case GameType.NoDRM:
+                    idx = Tables.DRM_FILE_TABLE.IndexOf(data_path);
+                    if (idx != -1)
+                        return Tables.NO_DRM_FILE_TABLE[idx];
+                    else
+                        return data_path;
+                default:
+                    return data_path;
+            }
+        }
+
         public void Install()
         {
             this.textProgress.Report("Patching catalog.json...");
@@ -317,9 +352,10 @@ namespace EO_Mod_Manager
             CopyOriginalToBackup(keyValuePairs);
             foreach (KeyValuePair<string, List<string>> entry in keyValuePairs)
             {
-                var source_path = Path.Combine(this.GamePath, entry.Key);
+                var source_file = GetSourceFileFromDataPath(entry.Key);
+                var source_path = Path.Combine(this.GamePath, source_file);
                 // If its not a bundle file, then we can't merge it. Meaning we just copy the highest priority mod
-                if (!entry.Key.EndsWith(".bundle"))
+                if (!source_file.EndsWith(".bundle"))
                 {
                     this.textProgress.Report("Not a .bundle file, so just copying the highest priority mod file over");
                     this.textProgress.Report($"Copying {entry.Value[0]} to {source_path}");
