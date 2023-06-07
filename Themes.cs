@@ -14,7 +14,9 @@ namespace EO_Mod_Manager
         public enum ThemeOption
         {
             White,
-            Black,
+            PitchBlack,
+            DarkMode,
+            Naoto,
             Invalid,
         }
 
@@ -46,20 +48,46 @@ namespace EO_Mod_Manager
                 }
             },
             {
-                ThemeOption.Black, new ThemeData
+                ThemeOption.PitchBlack, new ThemeData
                 {
                     mainBgColor = "#000",
                     mainTextColor = "#fff",
-                    mainTableBgColor = "#F0F0F0",
+                    mainTableBgColor = "#1A1A1A",
                     mainTableTextColor = "#000",
                     buttonBgColor = "#000",
                     buttonTextColor = "#fff",
                     textBoxBgColor = "#000",
                     textBoxTextColor = "#fff"
                 }
+            },
+			{
+				ThemeOption.DarkMode, new ThemeData
+				{
+					mainBgColor = "#1A1A1A",
+					mainTextColor = "#fff",
+					mainTableBgColor = "#222",
+					mainTableTextColor = "#fff",
+					buttonBgColor = "#333",
+					buttonTextColor = "#fff",
+					textBoxBgColor = "#222",
+					textBoxTextColor = "#fff"
+				}
+			},
+			{
+                ThemeOption.Naoto, new ThemeData
+                {
+                    mainBgColor = "#0E112A",
+                    mainTextColor = "#FFFFFF",
+                    mainTableBgColor = "#0E112A",
+                    mainTableTextColor = "#FFFFFF",
+                    buttonBgColor = "#0E112A",
+                    buttonTextColor = "#FFFFFF",
+                    textBoxBgColor = "#0E112A",
+                    textBoxTextColor = "#FFFFFF"
+				}
             }
         };
-        public static ThemeOption GetOptionFromString(string theme)
+public static ThemeOption GetOptionFromString(string theme)
         {
             theme = string.Concat(theme.Split(' '));
             ThemeOption res;
