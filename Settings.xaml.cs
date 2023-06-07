@@ -22,6 +22,14 @@ namespace EO_Mod_Manager
         public Settings()
         {
             InitializeComponent();
+            Themes.UpdateForm(Themes.CURRENT_THEME, this);
+            foreach(Themes.ThemeOption theme_option in Enum.GetValues(new Themes.ThemeOption().GetType()))
+            {
+                if (theme_option == Themes.ThemeOption.Invalid)
+                    continue;
+                cboThemes.Items.Add(Themes.GetStringFromOption(theme_option));
+            }
+            cboThemes.SelectedItem = Themes.GetStringFromOption(Themes.CURRENT_THEME);
             txtEO1.Text = Properties.Settings.Default.EO1_Path;
             txtEO2.Text = Properties.Settings.Default.EO2_Path;
             txtEO3.Text = Properties.Settings.Default.EO3_Path;
@@ -43,6 +51,7 @@ namespace EO_Mod_Manager
             else
             {
                 Properties.Settings.Default.progress_close_status = (bool)chkCloseWindow.IsChecked;
+                Properties.Settings.Default.App_Theme = Themes.GetStringFromOption(Themes.CURRENT_THEME);
                 Properties.Settings.Default.Save();
                 this.Close();
             }
@@ -66,6 +75,14 @@ namespace EO_Mod_Manager
         private void chkCloseWindow_Checked(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.progress_close_status = (bool)chkCloseWindow.IsChecked;
+        }
+
+        private void cboThemes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Themes.CURRENT_THEME = Themes.GetOptionFromString(cboThemes.SelectedItem.ToString());
+            Themes.UpdateForm(Themes.CURRENT_THEME, this);
+            if(this.Owner != null)
+                Themes.UpdateForm(Themes.CURRENT_THEME, this.Owner);
         }
     }
 }

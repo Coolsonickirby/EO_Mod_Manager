@@ -9,8 +9,8 @@
         ResizeMode="NoResize" SizeToContent="WidthAndHeight"
         >
     <StackPanel Margin="5,0,5,5">
-        <Label x:Name="label" Content="Game:"/>
-        <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" Width="421" Margin="0,0,0,10" SelectionChanged="cboGames_SelectionChanged"/>
+        <Label x:Name="label" Content="Game:" />
+        <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" Width="421" Margin="0,0,0,10" SelectionChanged="cboGames_SelectionChanged" />
         <DockPanel Margin="0,0,0,10">
             <DataGrid x:Name="dataMods" Width="380" Height="324">
                 <DataGrid.Columns>

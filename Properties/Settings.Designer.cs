@@ -106,5 +106,17 @@ namespace EO_Mod_Manager.Properties {
                 this["EO3_EXE"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public string App_Theme {
+            get {
+                return ((string)(this["App_Theme"]));
+            }
+            set {
+                this["App_Theme"] = value;
+            }
+        }
     }
 }

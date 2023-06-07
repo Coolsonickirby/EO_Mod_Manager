@@ -23,5 +23,8 @@
     <Setting Name="EO3_EXE" Type="System.String" Scope="User">
       <Value Profile="(Default)">Etrian Odyssey 3.exe</Value>
     </Setting>
+    <Setting Name="App_Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">White</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

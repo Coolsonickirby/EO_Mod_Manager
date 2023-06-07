@@ -77,6 +77,7 @@ namespace EO_Mod_Manager
             dataMods.CanUserAddRows = false;
             dataMods.ItemsSource = ((Game)(cboGames.SelectedItem)).GameMods;
             dataMods.SelectionMode = DataGridSelectionMode.Single;
+            Themes.UpdateForm(Themes.CURRENT_THEME, this);
         }
 
         private void SetupGames()
