@@ -17,6 +17,7 @@ namespace EO_Mod_Manager
         public CreateMod()
         {
             InitializeComponent();
+            Themes.UpdateForm(Themes.CURRENT_THEME, this);
             this.Title = $"Create Mod for {MainWindow.selected_game.GameName}";
         }
 
