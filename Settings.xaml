@@ -5,23 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EO_Mod_Manager"
         mc:Ignorable="d"
-        Title="Settings" Height="353" Width="367"
+        Title="Settings" Height="478" Width="550.5"
         ResizeMode="NoResize"
         >
     <Grid>
-        <Label x:Name="lblEO1" Content="Etrian Odyssey HD Path:" HorizontalAlignment="Left" Margin="6,8,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtEO1" HorizontalAlignment="Center" Margin="0,34,0,0" Text="" TextWrapping="NoWrap" VerticalAlignment="Top" Width="339" TextChanged="txtEO1_TextChanged"/>
+        <Label x:Name="lblEO1" Content="Etrian Odyssey HD Path:" HorizontalAlignment="Left" Margin="9,12,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtEO1" HorizontalAlignment="Center" Margin="0,51,0,0" Text="" TextWrapping="NoWrap" VerticalAlignment="Top" Width="508.5" TextChanged="txtEO1_TextChanged"/>
         
-        <Label x:Name="lblEO2" Content="Etrian Odyssey II HD Path:" HorizontalAlignment="Left" Margin="6,64,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtEO2" HorizontalAlignment="Center" Margin="0,90,0,0" Text="" TextWrapping="NoWrap" VerticalAlignment="Top" Width="339" TextChanged="txtEO2_TextChanged"/>
+        <Label x:Name="lblEO2" Content="Etrian Odyssey II HD Path:" HorizontalAlignment="Left" Margin="9,96,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtEO2" HorizontalAlignment="Center" Margin="0,135,0,0" Text="" TextWrapping="NoWrap" VerticalAlignment="Top" Width="508.5" TextChanged="txtEO2_TextChanged"/>
         
-        <Label x:Name="lblEO3" Content="Etrian Odyssey III HD Path:" HorizontalAlignment="Left" Margin="6,120,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtEO3" HorizontalAlignment="Center" Margin="0,146,0,0" Text="" TextWrapping="NoWrap" VerticalAlignment="Top" Width="339" TextChanged="txtEO3_TextChanged"/>
+        <Label x:Name="lblEO3" Content="Etrian Odyssey III HD Path:" HorizontalAlignment="Left" Margin="9,180,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtEO3" HorizontalAlignment="Center" Margin="0,219,0,0" Text="" TextWrapping="NoWrap" VerticalAlignment="Top" Width="508.5" TextChanged="txtEO3_TextChanged"/>
         
-        <Label x:Name="lblTheme" Content="Theme:" HorizontalAlignment="Left" Margin="6,176,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cboThemes" HorizontalAlignment="Center" Margin="0,202,0,0" VerticalAlignment="Top" Width="339" SelectionChanged="cboThemes_SelectionChanged"/>
+        <Label x:Name="lblTheme" Content="Theme:" HorizontalAlignment="Left" Margin="9,264,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cboThemes" HorizontalAlignment="Center" Margin="0,303,0,0" VerticalAlignment="Top" Width="508.5" SelectionChanged="cboThemes_SelectionChanged"/>
         
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Margin="0,264,0,0" VerticalAlignment="Top" Width="339" Click="btnSave_Click"/>
-        <CheckBox x:Name="chkCloseWindow" Content="Close Window Automatically after Mods Installation" HorizontalAlignment="Left" Margin="14,233,0,0" VerticalAlignment="Top" Checked="chkCloseWindow_Checked"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Margin="0,396,0,0" VerticalAlignment="Top" Width="508.5" Click="btnSave_Click"/>
+        <CheckBox x:Name="chkCloseWindow" Content="Close Window Automatically after Mods Installation" HorizontalAlignment="Left" Margin="21,349.5,0,0" VerticalAlignment="Top" Checked="chkCloseWindow_Checked"/>
     </Grid>
 </Window>

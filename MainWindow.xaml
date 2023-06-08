@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EO_Mod_Manager"
         mc:Ignorable="d"
-        Title="EO Mod Manager" Height="483" Width="437"
+        Title="EO Mod Manager" Height="2078" Width="874"
         ResizeMode="NoResize" SizeToContent="WidthAndHeight"
         >
-    <StackPanel Margin="5,0,5,5">
+    <StackPanel Margin="10,0,10,10">
         <Label x:Name="label" Content="Game:" />
-        <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" Width="421" Margin="0,0,0,10" SelectionChanged="cboGames_SelectionChanged" />
-        <DockPanel Margin="0,0,0,10">
-            <DataGrid x:Name="dataMods" Width="380" Height="324">
+        <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" Width="842" Margin="0,0,0,20" SelectionChanged="cboGames_SelectionChanged" />
+        <DockPanel Margin="0,0,0,20">
+            <DataGrid x:Name="dataMods" Width="760" Height="648">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Header="" Binding="{Binding enabled}" CanUserSort="False" Width="*"/>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" CanUserSort="False" IsReadOnly="True" Width="*"/>
@@ -21,16 +21,16 @@
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel>
-                <Button x:Name="btnMoveUp" Content="▲" Height="162" Width="20" Click="btnMoveUp_Click"/>
-                <Button x:Name="btnMoveDown" Content="▼" Height="152" Width="20" Click="btnMoveDown_Click" Margin="0,10,0,0"/>
+                <Button x:Name="btnMoveUp" Content="▲" Height="324" Width="40" Click="btnMoveUp_Click"/>
+                <Button x:Name="btnMoveDown" Content="▼" Height="304" Width="40" Click="btnMoveDown_Click" Margin="0,20,0,0"/>
             </StackPanel>
         </DockPanel>
 
         <DockPanel>
-            <Button x:Name="btnCreate" Content="Create Mod" Height="25" Width="112" Margin="6,0,5,0" Click="btnCreate_Click"/>
-            <Button x:Name="btnSave" Content="Save" Height="25" Width="124" Margin="0,0,5,0" Click="btnSave_Click" />
-            <Button x:Name="btnSaveAndPlay" Content="Save &amp; Play" Height="25" Width="124" Click="btnSaveAndPlay_Click"/>
-            <Button x:Name="btnSettings" Content="⚙️" Width="32" Click="btnSettings_Click" />
+            <Button x:Name="btnCreate" Content="Create Mod" Height="50" Width="224" Margin="12,0,10,0" Click="btnCreate_Click"/>
+            <Button x:Name="btnSave" Content="Save" Height="50" Width="248" Margin="0,0,10,0" Click="btnSave_Click" />
+            <Button x:Name="btnSaveAndPlay" Content="Save &amp; Play" Height="50" Width="248" Click="btnSaveAndPlay_Click"/>
+            <Button x:Name="btnSettings" Content="⚙️" Width="64" Click="btnSettings_Click" />
         </DockPanel>
     </StackPanel>
 </Window>

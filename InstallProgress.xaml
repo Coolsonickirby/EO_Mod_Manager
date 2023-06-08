@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EO_Mod_Manager"
         mc:Ignorable="d"
-        Title="Progress" Height="381" Width="530" ResizeMode="NoResize">
-    <StackPanel>
-        <TextBox x:Name="txtLog" Text="" IsReadOnly="True" TextWrapping="Wrap" Width="500" Height="270" Margin="0,10,0,0"/>
-        <DockPanel Margin="0,10,0,0">
-            <Button x:Name="button" Content="Close" IsEnabled="False" Margin="10,0,0,0" Width="233" Height="36" Click="button_Click"/>
+        Title="Progress" Height="549" Width="795" ResizeMode="NoResize">
+    <StackPanel Margin="0,0,0,14">
+        <TextBox x:Name="txtLog" Text="" IsReadOnly="True" TextWrapping="Wrap" Width="750" Height="405" Margin="0,15,0,0"/>
+        <DockPanel Margin="0,15,0,0">
+            <Button x:Name="button" Content="Close" IsEnabled="False" Margin="15,0,0,0" Width="349.5" Height="54" Click="button_Click"/>
             <CheckBox x:Name="checkBox" IsChecked="True" Content="Close Window Automatically after Installation" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </DockPanel>
     </StackPanel>

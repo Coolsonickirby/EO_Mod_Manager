@@ -14,35 +14,38 @@ using System.Windows.Shapes;
 
 namespace EO_Mod_Manager
 {
-    /// <summary>
-    /// Interaction logic for InstallProgress.xaml
-    /// </summary>
-    public partial class InstallProgress : Window
-    {
-        public InstallProgress(Game game)
-        {
-            InitializeComponent();
-            checkBox.IsChecked = Properties.Settings.Default.progress_close_status;
-            StartInstallation(game);
-        }
+	/// <summary>
+	/// Interaction logic for InstallProgress.xaml
+	/// </summary>
+	public partial class InstallProgress : Window
+	{
+		public InstallProgress(Game game)
+		{
+			InitializeComponent();
+			checkBox.IsChecked = Properties.Settings.Default.progress_close_status;
+			StartInstallation(game);
 
-        public async void StartInstallation(Game game)
-        {
-            game.textProgress = new Progress<string>(value => {
-                txtLog.Text += $"{value}\n";
-                txtLog.ScrollToEnd();
-            });
-            await Task.Run(() => {
-                game.Save();
-            });
-            button.IsEnabled = true;
-            if ((bool)checkBox.IsChecked)
-                this.Close();
-        }
+			Themes.UpdateForm(Themes.CURRENT_THEME, this); // Apply the theme
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-    }
+		}
+
+		public async void StartInstallation(Game game)
+		{
+			game.textProgress = new Progress<string>(value => {
+				txtLog.Text += $"{value}\n";
+				txtLog.ScrollToEnd();
+			});
+			await Task.Run(() => {
+				game.Save();
+			});
+			button.IsEnabled = true;
+			if ((bool)checkBox.IsChecked)
+				this.Close();
+		}
+
+		private void button_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
+		}
+	}
 }

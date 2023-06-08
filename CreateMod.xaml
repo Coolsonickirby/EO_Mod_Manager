@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EO_Mod_Manager"
         mc:Ignorable="d"
-        Title="Create Mod" Height="374" Width="461"
+        Title="Create Mod" Height="534" Width="922"
         ResizeMode="NoResize" >
-    <StackPanel Margin="10,0,10,0">
+    <StackPanel Margin="20,0,20,0" Height="620" VerticalAlignment="Top">
         <Label Content="Mod Name:"/>
         <TextBox x:Name="txtName" />
         
@@ -18,8 +18,8 @@
         <TextBox x:Name="txtVersion" />
         
         <Label Content="Mod Description:"/>
-        <TextBox x:Name="txtDescription" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" Height="138" />
+        <TextBox x:Name="txtDescription" TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True" SpellCheck.IsEnabled="True" Height="276" />
 
-        <Button x:Name="button" Content="Create" Margin="0,10,0,0" Click="button_Click"/>
+        <Button x:Name="button" Content="Create" Margin="0,20,0,0" Click="button_Click"/>
     </StackPanel>
 </Window>
