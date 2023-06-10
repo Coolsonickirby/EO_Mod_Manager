@@ -25,5 +25,14 @@ namespace EO_Mod_Manager
             ModConfig config = JsonSerializer.Deserialize<ModConfig>(data)!;
             return config;
         }
+
+        public bool SaveToPath(string path)
+        {
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            string mod_config_path = Path.Combine(path, ModConfig.CONFIG_FILE);
+            File.WriteAllText(mod_config_path, JsonSerializer.Serialize(this));
+            return File.Exists(mod_config_path);
+        }
     }
 }

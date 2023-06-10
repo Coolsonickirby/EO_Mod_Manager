@@ -12,7 +12,7 @@
         <Label x:Name="label" Content="Game:" />
         <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" Width="842" Margin="0,0,0,20" SelectionChanged="cboGames_SelectionChanged" />
         <DockPanel Margin="0,0,0,20">
-            <DataGrid x:Name="dataMods" Width="760" Height="648">
+            <DataGrid x:Name="dataMods" Width="760" Height="725">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn Header="" Binding="{Binding enabled}" CanUserSort="False" Width="*"/>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" CanUserSort="False" IsReadOnly="True" Width="*"/>
@@ -21,8 +21,9 @@
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel>
-                <Button x:Name="btnMoveUp" Content="▲" Height="324" Width="40" Click="btnMoveUp_Click"/>
-                <Button x:Name="btnMoveDown" Content="▼" Height="304" Width="40" Click="btnMoveDown_Click" Margin="0,20,0,0"/>
+                <Button x:Name="btnMoveUp" Content="▲" Height="304" Width="40" Click="btnMoveUp_Click"/>
+                <Button x:Name="btnRefresh" Content="⟳" FontSize="25" Height="98" Width="40" Margin="0,10,0,0" Click="btnRefresh_Click"/>
+                <Button x:Name="btnMoveDown" Content="▼" Height="304" Width="40" Click="btnMoveDown_Click" Margin="0,10,0,0"/>
             </StackPanel>
         </DockPanel>
 

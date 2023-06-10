@@ -21,7 +21,7 @@ namespace EO_Mod_Manager
 
         private static string BACKUP_FOLDER = "backups";
         private static string MODS_FOLDER = "mods";
-        private static List<string> PATHS_TO_IGNORE = new List<string>() { ModConfig.CONFIG_FILE, Game.MODS_FOLDER, Game.BACKUP_FOLDER };
+        private static List<string> PATHS_TO_IGNORE = new List<string>() { ModConfig.CONFIG_FILE, Game.MODS_FOLDER, Game.BACKUP_FOLDER, "catalog.json" };
         public string key { get; set; }
         public string GameName { get; set; }
         public string GamePath { get; set; }
@@ -180,6 +180,96 @@ namespace EO_Mod_Manager
             }
         }
 
+        public static void CreateNewCombinedAssetsFile(string original, List<string> modded_paths, string output, IProgress<string> textProgress = null)
+        {
+            if (textProgress == null)
+                textProgress = new Progress<string>();
+            if (modded_paths.Count == 1)
+            {
+                textProgress.Report($"Only one modded assets instance found! Overwriting...");
+                File.Copy(modded_paths[0], output, true);
+                return;
+            }
+            var am = new AssetsManager();
+
+            textProgress.Report($"Loading original assets file... {original}");
+            var og_assetInst = am.LoadAssetsFile(original, false);
+
+            am.LoadClassPackage("classdata_large.tpk");
+            am.LoadClassDatabaseFromPackage(og_assetInst.file.typeTree.unityVersion);
+
+            // Original Asset Index -> CRC32 Hash
+            Dictionary<long, uint> og_asset_hash = new Dictionary<long, uint>();
+
+            // Asset Index -> New Asset Replacer Object
+            Dictionary<long, AssetsReplacer> idx_to_asset_replacement = new Dictionary<long, AssetsReplacer>();
+
+            foreach (var inf in og_assetInst.table.assetFileInfo)
+            {
+                // Ignore AssetBundle files
+                if (inf.curFileType == (uint)AssetClassID.AssetBundle)
+                    continue;
+
+                // Get the Base Field of the Asset
+                var baseField = am.GetTypeInstance(og_assetInst, inf).GetBaseField();
+
+                // Add the original asset's CRC32 to the table (used to check if mods change said file)
+                og_asset_hash.Add(inf.index, Crc32Algorithm.Compute(baseField.WriteToByteArray()));
+            }
+
+            foreach (string file in modded_paths)
+            {
+                textProgress.Report($"Loading modded assets file... {file}");
+
+                // Modded Assets
+                var mod_assetInst = am.LoadAssetsFile(file, false);
+
+                foreach (var inf in mod_assetInst.table.assetFileInfo)
+                {
+                    // Ignore AssetBundle files
+                    if (inf.curFileType == (uint)AssetClassID.AssetBundle)
+                        continue;
+
+                    // Get the Base Field of the Asset
+                    var baseField = am.GetTypeInstance(mod_assetInst, inf).GetBaseField();
+
+                    // Check to see if the Asset is modded by comparing its hash to the original hash. If its the same (not modified), then skip.
+                    if (og_asset_hash[inf.index] == Crc32Algorithm.Compute(baseField.WriteToByteArray()))
+                        continue;
+
+                    textProgress.Report($"Asset Index {inf.index} Data Hash is different! Overwriting asset...");
+
+                    // Convert the modded asset to a byte array
+                    var newBytes = baseField.WriteToByteArray();
+
+                    // Check to see if the asset is already modded, and if so, then overwrite it. Else, just add it to the table
+                    if (!idx_to_asset_replacement.ContainsKey(inf.index))
+                        idx_to_asset_replacement.Add(inf.index, new AssetsReplacerFromMemory(0, inf.index, (int)inf.curFileType, 0xffff, newBytes));
+                    else
+                        idx_to_asset_replacement[inf.index] = new AssetsReplacerFromMemory(0, inf.index, (int)inf.curFileType, 0xffff, newBytes);
+                }
+            }
+
+            // Convert all the asset replacements from the dictionary to a List
+            List<AssetsReplacer> assetsReplacers = idx_to_asset_replacement.Select(e => e.Value).ToList();
+
+            textProgress.Report("Writing new assets table...");
+            // Create empty byte array for new asset data
+            byte[] newAssetData;
+            using (var stream = new MemoryStream())
+            using (var writer = new AssetsFileWriter(stream))
+            {
+                // Write the new assets in and convert it to a byte array
+                og_assetInst.file.Write(writer, 0, assetsReplacers, 0);
+                newAssetData = stream.ToArray();
+            }
+            am.UnloadAll();
+
+            // Write the new bundle to the output
+            File.WriteAllBytes(output, newAssetData);
+            textProgress.Report($"Assets file {output} is done writing!");
+        }
+
         public static void CreateNewCombinedBundle(string original, List<string> modded_paths, string output, IProgress<string> textProgress = null)
         {
             if (textProgress == null)
@@ -208,6 +298,15 @@ namespace EO_Mod_Manager
             Dictionary<long, AssetsReplacer> idx_to_asset_replacement = new Dictionary<long, AssetsReplacer>();
 
             textProgress.Report("Adding original assets hashes to table...");
+
+            if(og_assetInst.table.assetFileInfo.Length <= 2)
+            {
+                textProgress.Report($"Only two asset file infos found (one is most likely the AssetBundle)! Overwriting...");
+                File.Copy(modded_paths[modded_paths.Count - 1], output, true);
+                am.UnloadAll();
+                return;
+            }
+
             foreach (var inf in og_assetInst.table.assetFileInfo)
             {
                 // Ignore AssetBundle files
@@ -254,6 +353,8 @@ namespace EO_Mod_Manager
                         idx_to_asset_replacement.Add(inf.index, new AssetsReplacerFromMemory(0, inf.index, (int)inf.curFileType, 0xffff, newBytes));
                     else
                         idx_to_asset_replacement[inf.index] = new AssetsReplacerFromMemory(0, inf.index, (int)inf.curFileType, 0xffff, newBytes);
+                
+                
                 }
             }
 
@@ -306,6 +407,9 @@ namespace EO_Mod_Manager
             List<string> old_mods_name = this.GameMods.Select(e => e.folder_name).ToList();
             List<string> new_mods_name = new_mods.Select(e => e.folder_name).ToList();
             List<string> new_mods_only = new_mods_name.Except(old_mods_name).ToList();
+            List<string> mods_to_remove = old_mods_name.Where(e => !new_mods_name.Contains(e)).ToList();
+
+            this.GameMods = new ObservableCollection<Mod>(this.GameMods.Where(e => !mods_to_remove.Contains(e.folder_name)).ToList());
 
             Mod[] new_mods_to_append = new_mods.Where(e => new_mods_only.Contains(e.folder_name)).ToArray();
             foreach(Mod mod in new_mods_to_append)
@@ -347,7 +451,8 @@ namespace EO_Mod_Manager
                 if (!mod.enabled)
                     continue;
                 this.textProgress.Report($"Scanning {mod.Name}...");
-                CheckDirForMods(mod.mod_path, mod.mod_path, ref keyValuePairs);
+                string starting_mod_path = Path.Combine(mod.mod_path, this.GameFolderDataName);
+                CheckDirForMods(mod.mod_path, starting_mod_path, ref keyValuePairs);
             }
             CopyOriginalToBackup(keyValuePairs);
             foreach (KeyValuePair<string, List<string>> entry in keyValuePairs)
@@ -355,18 +460,27 @@ namespace EO_Mod_Manager
                 var source_file = GetSourceFileFromDataPath(entry.Key);
                 var source_path = Path.Combine(this.GamePath, source_file);
                 // If its not a bundle file, then we can't merge it. Meaning we just copy the highest priority mod
-                if (!source_file.EndsWith(".bundle"))
+
+                var ext = Path.GetExtension(source_file);
+
+                switch (ext)
                 {
-                    this.textProgress.Report("Not a .bundle file, so just copying the highest priority mod file over");
-                    this.textProgress.Report($"Copying {entry.Value[0]} to {source_path}");
-                    File.Copy(entry.Value[0], source_path, true);
-                }
-                else
-                {
-                    this.textProgress.Report("Found .bundle file! Merging all bundle files into one...");
-                    // Reversing so that higher priority mods will be processed last (and thus overwriting previous mods)
-                    entry.Value.Reverse();
-                    CreateNewCombinedBundle(source_path, entry.Value, source_path, this.textProgress);
+                    case ".bundle":
+                    case ".assets":
+                    case "":
+                        this.textProgress.Report($"Found {(ext == "" ? "blank extension (asset)" : ext)} file! Merging all {(ext == "" ? "blank extension (asset)" : ext)} files into one...");
+                        // Reversing so that higher priority mods will be processed last (and thus overwriting previous mods)
+                        entry.Value.Reverse();
+                        if (ext == ".bundle")
+                            CreateNewCombinedBundle(source_path, entry.Value, source_path, this.textProgress);
+                        else
+                            CreateNewCombinedAssetsFile(source_path, entry.Value, source_path, this.textProgress);
+                        break;
+                    default:
+                        this.textProgress.Report("Not a file with merge support, so just copying the highest priority mod file over");
+                        this.textProgress.Report($"Copying {entry.Value[0]} to {source_path}");
+                        File.Copy(entry.Value[0], source_path, true);
+                        break;
                 }
             }
             this.textProgress.Report("Mods installation complete!");

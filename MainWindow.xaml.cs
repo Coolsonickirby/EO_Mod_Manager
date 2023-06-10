@@ -232,5 +232,12 @@ namespace EO_Mod_Manager
             current_mods = selected_game.GameMods;
             dataMods.ItemsSource = current_mods;
         }
+
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            selected_game.Refresh();
+            current_mods = selected_game.GameMods;
+            dataMods.ItemsSource = current_mods;
+        }
     }
 }

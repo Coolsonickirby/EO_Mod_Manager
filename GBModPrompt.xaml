@@ -1,0 +1,42 @@
+﻿<Window x:Class="EO_Mod_Manager.GBModPrompt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EO_Mod_Manager"
+        mc:Ignorable="d"
+        Title="[mod title]" Height="1115" Width="668" ResizeMode="NoResize">
+    <StackPanel>
+        <Border BorderThickness="1"
+                BorderBrush="#FF000000">
+            <Image x:Name="image" Height="342" Width="668" Stretch="Fill"/>
+        </Border>
+        
+        <Label Margin="5,10,5,0">Game:</Label>
+        <TextBox Margin="15,5,5,0" x:Name="txtGame" IsReadOnly="True"></TextBox>
+
+        <Label Margin="5,10,5,0">Mod Name:</Label>
+        <TextBox Margin="15,5,5,0" x:Name="txtModName" IsReadOnly="True"></TextBox>
+
+        <Label Margin="5,10,5,0">Submitter:</Label>
+        <TextBox Margin="15,5,5,0" x:Name="txtSubmitter" IsReadOnly="True"></TextBox>
+
+        <Label Margin="5,10,5,0">Version:</Label>
+        <TextBox Margin="15,5,5,0" x:Name="txtVersion" IsReadOnly="True"></TextBox>
+
+        <Label Margin="5,10,5,0">Description:</Label>
+        <Border Margin="15,5,10,0"
+                BorderThickness="1"
+                BorderBrush="#FF000000"
+                >
+            <WebBrowser x:Name="broDescription"></WebBrowser>
+        </Border>
+
+        <Label Margin="5,10,5,0">Files (Select the right one):</Label>
+        <ComboBox x:Name="cboFiles" Width="607" Margin="0,5,0,0" SelectedValuePath="Key" DisplayMemberPath="Value.filename"/>
+        <Button x:Name="btnDownload" Content="Download Mod" Margin="10,32,10,0" Height="47" Click="btnDownload_Click"/>
+
+        <TextBox x:Name="txtProgress" Margin="0,20,0,0" Text="" IsReadOnly="True" TextWrapping="Wrap" Width="642" Height="129"></TextBox>
+
+    </StackPanel>
+</Window>

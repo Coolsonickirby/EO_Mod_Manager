@@ -11,6 +11,10 @@ namespace EO_Mod_Manager
 {
     public class Themes
     {
+        // To create a new theme, create a new enum for the ThemeOption, then insert the new enum alongside the
+        // new ThemeData object with the colors you want in the THEMES_TABLE
+        // (the display name will be the enum name split with a space before every capital letter)
+        // (so for example, "DarkMode" will look like "Dark Mode")
         public enum ThemeOption
         {
             White,
