@@ -29,7 +29,7 @@ namespace EO_Mod_Manager
         {
             Utils.CheckForUpdate();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            
+
             //Game.CreateNewCombinedBundle(
             //    @"D:\Games\Etrian Odyssey Origins Collection\Etrian Odyssey HD\Etrian Odyssey_Data\StreamingAssets\aa\StandaloneWindows64\charabigimgs_assets_all_a59a4657768e489ed89b02121d6faa42.bundle",
             //    new List<string>()
@@ -79,6 +79,8 @@ namespace EO_Mod_Manager
             dataMods.ItemsSource = ((Game)(cboGames.SelectedItem)).GameMods;
             dataMods.SelectionMode = DataGridSelectionMode.Single;
             Themes.UpdateForm(Themes.CURRENT_THEME, this);
+
+            this.Title += $" - {App.APP_VERSION}";
         }
 
         private void SetupGames()

@@ -61,15 +61,22 @@ namespace EO_Mod_Manager
 
         public static void CheckForUpdate()
         {
-            string json = Utils.GetTextFromURL(App.APP_UPDATE_ENDPOINT);
-            JsonArray jsonArr = JsonSerializer.Deserialize<JsonArray>(json);
-            JsonObject latestRelease = (JsonObject)jsonArr[0];
-            string latest_release_tag = (string)latestRelease["tag_name"].AsValue();
+            try
+            {
+                string json = Utils.GetTextFromURL(App.APP_UPDATE_ENDPOINT);
+                JsonArray jsonArr = JsonSerializer.Deserialize<JsonArray>(json);
+                JsonObject latestRelease = (JsonObject)jsonArr[0];
+                string latest_release_tag = (string)latestRelease["tag_name"].AsValue();
 
-            var current_version = Semver.SemVersion.Parse(App.APP_VERSION);
-            var latest_version = Semver.SemVersion.Parse(latest_release_tag);
-            if (current_version.ComparePrecedenceTo(latest_version) == -1) // -1 => outdated
-                new Update(latestRelease).ShowDialog();
+                var current_version = Semver.SemVersion.Parse(App.APP_VERSION);
+                var latest_version = Semver.SemVersion.Parse(latest_release_tag);
+                if (current_version.ComparePrecedenceTo(latest_version) == -1) // -1 => outdated
+                    new Update(latestRelease).ShowDialog();
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }
