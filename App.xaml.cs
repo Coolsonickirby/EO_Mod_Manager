@@ -15,8 +15,16 @@ namespace EO_Mod_Manager
     public partial class App : Application
     {
         private static Mutex _mutex = null;
+        public const string APP_VERSION = "2.0.0";
+        public const string APP_UPDATE_ENDPOINT = "https://api.github.com/repos/Coolsonickirby/EO_Mod_Manager/releases";
+        public const string OLD_FOLDER = "old";
         protected override void OnStartup(StartupEventArgs e)
         {
+            this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
+
+            if (System.IO.Directory.Exists(OLD_FOLDER))
+                System.IO.Directory.Delete(OLD_FOLDER, true);
+
             Utils.RegisterProtocol(Utils.MM_PROTOCOL, "Etrian Odyssey HD Mod Manager");
             if (e.Args.Length == 1)
                 this.StartupUri = new Uri("/EO_Mod_Manager;component/GBModPrompt.xaml", UriKind.Relative);
@@ -34,6 +42,15 @@ namespace EO_Mod_Manager
                 }
             }
             base.OnStartup(e);
+        }
+
+        void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            string errorMessage = string.Format("An unhandled exception occurred: {0}", e.Exception.Message);
+            MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (!(e is System.Windows.Markup.XamlParseException))
+                e.Handled = true;
+            Environment.Exit(-1);
         }
     }
 }

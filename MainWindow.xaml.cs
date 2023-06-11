@@ -27,6 +27,7 @@ namespace EO_Mod_Manager
         public static ObservableCollection<Mod> current_mods;
         public MainWindow()
         {
+            Utils.CheckForUpdate();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             
             //Game.CreateNewCombinedBundle(

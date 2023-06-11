@@ -42,6 +42,7 @@ namespace EO_Mod_Manager
 
         public GBModPrompt()
         {
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length != 2)
                 return;

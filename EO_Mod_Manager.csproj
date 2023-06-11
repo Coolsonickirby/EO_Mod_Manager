@@ -5,11 +5,14 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <Product>Etrian Odyssey HD Mod Manager</Product>
+    <Version>2.0.0</Version>
+    <Authors>Coolsonickirby</Authors>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Crc32.NET" Version="1.2.0" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
+    <PackageReference Include="Semver" Version="3.0.0-beta.0" />
     <PackageReference Include="SevenZipExtractor" Version="1.0.17" />
   </ItemGroup>
 
@@ -31,6 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="classdata_large.tpk">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
