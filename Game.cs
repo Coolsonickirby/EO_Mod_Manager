@@ -16,7 +16,8 @@ namespace EO_Mod_Manager
         public enum GameType
         {
             NoDRM,
-            DRM
+            DRM,
+            Invalid
         }
 
         private static string BACKUP_FOLDER = "backups";

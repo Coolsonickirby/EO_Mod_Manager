@@ -5,24 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EO_Mod_Manager"
         mc:Ignorable="d"
-        Title="[mod title]" Height="1115" Width="668" ResizeMode="NoResize">
+        Title="[mod title]" Height="1024" Width="668" ResizeMode="NoResize">
     <StackPanel>
         <Border BorderThickness="1"
                 BorderBrush="#FF000000">
             <Image x:Name="image" Height="342" Width="668" Stretch="Fill"/>
         </Border>
-        
-        <Label Margin="5,10,5,0">Game:</Label>
-        <TextBox Margin="15,5,5,0" x:Name="txtGame" IsReadOnly="True"></TextBox>
 
-        <Label Margin="5,10,5,0">Mod Name:</Label>
-        <TextBox Margin="15,5,5,0" x:Name="txtModName" IsReadOnly="True"></TextBox>
+        <DockPanel>
+            <StackPanel Width="334">
+                <Label Margin="5,10,5,0">Game:</Label>
+                <TextBox Margin="15,5,5,0" x:Name="txtGame" IsReadOnly="True"></TextBox>
+            </StackPanel>
 
-        <Label Margin="5,10,5,0">Submitter:</Label>
-        <TextBox Margin="15,5,5,0" x:Name="txtSubmitter" IsReadOnly="True"></TextBox>
+            <StackPanel Width="334">
+                <Label Margin="5,10,5,0">Mod Name:</Label>
+                <TextBox Margin="15,5,15,0" x:Name="txtModName" IsReadOnly="True" HorizontalAlignment="Left" Width="298"></TextBox>
+            </StackPanel>
+        </DockPanel>
 
-        <Label Margin="5,10,5,0">Version:</Label>
-        <TextBox Margin="15,5,5,0" x:Name="txtVersion" IsReadOnly="True"></TextBox>
+        <DockPanel>
+            <StackPanel Width="334">
+                <Label Margin="5,10,5,0">Submitter:</Label>
+                <TextBox Margin="15,5,5,0" x:Name="txtSubmitter" IsReadOnly="True"></TextBox>
+            </StackPanel>
+
+            <StackPanel Width="334" Margin="0,0,0,0">
+                <Label Margin="5,10,5,0">Version:</Label>
+                <TextBox Margin="15,5,15,0" x:Name="txtVersion" IsReadOnly="True" HorizontalAlignment="Left" Width="298"></TextBox>
+            </StackPanel>
+        </DockPanel>
+
+
+
+
+
+
 
         <Label Margin="5,10,5,0">Description:</Label>
         <Border Margin="15,5,10,0"

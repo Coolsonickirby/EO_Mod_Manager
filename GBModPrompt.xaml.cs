@@ -115,6 +115,7 @@ namespace EO_Mod_Manager
 
             txtProgress.Text += $"Reading archive...\n";
             string parent = "";
+            bool found_data_dir = false;
             using (MemoryStream stream = new MemoryStream(data))
             using(ArchiveFile archiveFile = new ArchiveFile(stream))
             {
@@ -129,11 +130,13 @@ namespace EO_Mod_Manager
                             txtProgress.Text += $"{mod.game_data_folder_name} does not have a parent! Creating new parent name...\n";
                             parent = mod.GetValidFolderName();
                             output_dir = System.IO.Path.Combine(output_dir, mod.GetValidFolderName());
+                            found_data_dir = true;
                             break;
                         } else if(idx == 1)
                         {
                             txtProgress.Text += $"{mod.game_data_folder_name} has a parent! Storing parent name...\n";
                             parent = split[idx - 1];
+                            found_data_dir = true;
                             break;
                         } else
                         {
@@ -142,6 +145,13 @@ namespace EO_Mod_Manager
                         }
                     }
                 }
+
+                if (!found_data_dir)
+                {
+                    MessageBox.Show("Archive has a invalid structure! Aborting the operation.", "Invalid Structure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Environment.Exit(-1);
+                }
+
                 archiveFile.Extract(output_dir);
             }
 

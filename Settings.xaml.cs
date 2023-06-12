@@ -39,15 +39,15 @@ namespace EO_Mod_Manager
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             string paths_not_set = "";
-            if (txtEO1.Text != String.Empty && !System.IO.Directory.Exists(txtEO1.Text))
+            if (txtEO1.Text != String.Empty && !System.IO.File.Exists(System.IO.Path.Combine(txtEO1.Text, "GameAssembly.dll")))
                 paths_not_set += "- Etrian Odyssey HD\n";
-            if (txtEO2.Text != String.Empty && !System.IO.Directory.Exists(txtEO2.Text))
+            if (txtEO2.Text != String.Empty && !System.IO.File.Exists(System.IO.Path.Combine(txtEO2.Text, "GameAssembly.dll")))
                 paths_not_set += "- Etrian Odyssey II HD\n";
-            if (txtEO3.Text != String.Empty && !System.IO.Directory.Exists(txtEO3.Text))
+            if (txtEO3.Text != String.Empty && !System.IO.File.Exists(System.IO.Path.Combine(txtEO3.Text, "GameAssembly.dll")))
                 paths_not_set += "- Etrian Odyssey III HD\n";
 
             if (paths_not_set != String.Empty)
-                MessageBox.Show("The following game paths do not exist:\n" + paths_not_set, "Paths not set", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("The following game paths are not valid (either do not exist or does not contain a 'GameAssembly.dll' file):\n" + paths_not_set, "Paths not set", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
                 Properties.Settings.Default.progress_close_status = (bool)chkCloseWindow.IsChecked;
