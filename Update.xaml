@@ -20,7 +20,7 @@
 
         <DockPanel Margin="10,22,10,0">
             <Button x:Name="btnUpdate" Content="Update" Width="380" Height="50" HorizontalAlignment="Left" Click="btnUpdate_Click"/>
-            <Button x:Name="btnCancel" Content="Cancel" Width="380" Height="50" HorizontalAlignment="Right" Click="btnCancel_Click"/>
+            <Button x:Name="btnCancel" Content="Back" Width="380" Height="50" HorizontalAlignment="Right" Click="btnCancel_Click"/>
         </DockPanel>
 
         <TextBox x:Name="txtLog" IsReadOnly="True" TextWrapping="Wrap" Margin="10,20,10,0" Height="127" />
