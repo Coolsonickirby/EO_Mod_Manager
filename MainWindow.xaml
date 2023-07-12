@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:EO_Mod_Manager"
         mc:Ignorable="d"
         Title="EO Mod Manager" Height="2078" Width="874"
-        SizeToContent="WidthAndHeight">
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Naoto_Window">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

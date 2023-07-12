@@ -257,5 +257,10 @@ namespace EO_Mod_Manager
             current_mods = selected_game.GameMods;
             dataMods.ItemsSource = current_mods;
         }
-    }
+		private void Naoto_Window(object sender, RoutedEventArgs e)
+		{
+			double maxWindowWidth = SystemParameters.WorkArea.Width * 1; //resize to whatever you want 1 = main monitor size, so 0.5 for half, 2 for double, etc
+			this.MaxWidth = maxWindowWidth;
+		}
+	}
 }
