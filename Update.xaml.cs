@@ -65,11 +65,18 @@ namespace EO_Mod_Manager
                 {
                     if (!File.Exists(entry.FileName))
                         continue;
-                    File.Move(entry.FileName, System.IO.Path.Combine(App.OLD_FOLDER, entry.FileName));
+                    MoveFile(entry.FileName, System.IO.Path.Combine(App.OLD_FOLDER, entry.FileName));
                 }
                 archiveFile.Extract("", true);
             }
             Environment.Exit(0);
+        }
+
+        private void MoveFile(string input, string output)
+        {
+            if (output.IndexOfAny(new char[] { '\\', '/' }) != -1)
+                new System.IO.FileInfo(output).Directory.Create();
+            File.Move(input, output, true);
         }
     }
 }
