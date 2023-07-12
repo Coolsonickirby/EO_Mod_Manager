@@ -6,32 +6,39 @@
         xmlns:local="clr-namespace:EO_Mod_Manager"
         mc:Ignorable="d"
         Title="EO Mod Manager" Height="2078" Width="874"
-        ResizeMode="NoResize" SizeToContent="WidthAndHeight"
-        >
-    <StackPanel Margin="10,0,10,10">
-        <Label x:Name="label" Content="Game:" />
-        <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" Width="842" Margin="0,0,0,20" SelectionChanged="cboGames_SelectionChanged" />
-        <DockPanel Margin="0,0,0,20">
-            <DataGrid x:Name="dataMods" Width="760" Height="725">
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="" Binding="{Binding enabled}" CanUserSort="False" Width="*"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" CanUserSort="False" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Version" Binding="{Binding Version}" CanUserSort="False" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Author" Binding="{Binding Author}" CanUserSort="False" IsReadOnly="True" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <StackPanel>
-                <Button x:Name="btnMoveUp" Content="▲" Height="304" Width="40" Click="btnMoveUp_Click"/>
-                <Button x:Name="btnRefresh" Content="⟳" FontSize="25" Height="98" Width="40" Margin="0,10,0,0" Click="btnRefresh_Click"/>
-                <Button x:Name="btnMoveDown" Content="▼" Height="304" Width="40" Click="btnMoveDown_Click" Margin="0,10,0,0"/>
-            </StackPanel>
-        </DockPanel>
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <DockPanel>
-            <Button x:Name="btnCreate" Content="Create Mod" Height="50" Width="224" Margin="12,0,10,0" Click="btnCreate_Click"/>
-            <Button x:Name="btnSave" Content="Save" Height="50" Width="248" Margin="0,0,10,0" Click="btnSave_Click" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <Label x:Name="label" Content="Game:"/>
+            <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" SelectionChanged="cboGames_SelectionChanged" />
+        </StackPanel>
+
+        <DataGrid x:Name="dataMods" Grid.Row="1" AutoGenerateColumns="False" CanUserResizeRows="False" Margin="0,0,55,0">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="" Binding="{Binding enabled}" CanUserSort="False" Width="Auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" CanUserSort="False" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Version" Binding="{Binding Version}" CanUserSort="False" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding Author}" CanUserSort="False" IsReadOnly="True" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,10,0">
+            <Button x:Name="btnMoveUp" Content="▲" Height="50" Width="40" Click="btnMoveUp_Click"/>
+            <Button x:Name="btnRefresh" Content="⟳" FontSize="25" Height="50" Width="40" Margin="0,10,0,0" Click="btnRefresh_Click"/>
+            <Button x:Name="btnMoveDown" Content="▼" Height="50" Width="40" Click="btnMoveDown_Click" Margin="0,10,0,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button x:Name="btnCreate" Content="Create Mod" Height="50" Width="224" Click="btnCreate_Click"/>
+            <Button x:Name="btnSave" Content="Save" Height="50" Width="248" Click="btnSave_Click" />
             <Button x:Name="btnSaveAndPlay" Content="Save &amp; Play" Height="50" Width="248" Click="btnSaveAndPlay_Click"/>
             <Button x:Name="btnSettings" Content="⚙️" Width="64" Click="btnSettings_Click" />
-        </DockPanel>
-    </StackPanel>
+        </StackPanel>
+    </Grid>
 </Window>
