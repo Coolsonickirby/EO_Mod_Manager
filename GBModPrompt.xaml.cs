@@ -165,10 +165,22 @@ namespace EO_Mod_Manager
             await Task.Delay(TimeSpan.FromSeconds(5));
             Environment.Exit(0);
         }
+		private void toggleImage_Click(object sender, RoutedEventArgs e)
+		{
+			if (toggleImage.IsChecked == true)
+			{
+				image.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				image.Visibility = Visibility.Visible;
+			}
+		}
 
-        //public GBModPrompt(string test)
-        //{
-        //    InitializeComponent();
-        //}
-    }
+
+		//public GBModPrompt(string test)
+		//{
+		//    InitializeComponent();
+		//}
+	}
 }

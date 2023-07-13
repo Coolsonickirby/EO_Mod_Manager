@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EO_Mod_Manager"
         mc:Ignorable="d"
-        Title="[mod title]" Height="1024" Width="668" ResizeMode="NoResize">
+        Title="[mod title]" Height="1024" Width="668" ResizeMode="CanResize">
     <StackPanel>
-        <Border BorderThickness="1"
-                BorderBrush="#FF000000">
-            <Image x:Name="image" Height="342" Width="668" Stretch="Fill"/>
+        <Border BorderThickness="1" BorderBrush="#FF000000">
+            <Grid>
+                <Image x:Name="image" Height="342" Width="668" Stretch="Fill" Visibility="Visible"/>
+                <ToggleButton x:Name="toggleImage" Content="Toggle Image" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Click="toggleImage_Click"/>
+            </Grid>
         </Border>
 
         <DockPanel>
