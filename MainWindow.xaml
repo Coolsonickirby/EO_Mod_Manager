@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EO_Mod_Manager"
         mc:Ignorable="d"
-        Title="EO Mod Manager" Height="2078" Width="874"
+        Title="EO Mod Manager" 
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
         Loaded="Naoto_Window">
@@ -21,12 +21,12 @@
             <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" SelectionChanged="cboGames_SelectionChanged" />
         </StackPanel>
 
-        <DataGrid x:Name="dataMods" Grid.Row="1" AutoGenerateColumns="False" CanUserResizeRows="False" Margin="0,0,55,0">
+        <DataGrid x:Name="dataMods" Grid.Row="1" AutoGenerateColumns="False" CanUserResizeRows="False" Margin="0,0,55,0" CellEditEnding="dataMods_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="" Binding="{Binding enabled}" CanUserSort="False" Width="Auto"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" CanUserSort="False" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Header="Version" Binding="{Binding Version}" CanUserSort="False" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Header="Author" Binding="{Binding Author}" CanUserSort="False" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" Width="*"/>
+                <DataGridTextColumn Header="Version" Binding="{Binding Version, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" Width="*"/>
+                <DataGridTextColumn Header="Author" Binding="{Binding Author, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

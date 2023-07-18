@@ -17,24 +17,24 @@
         <DockPanel>
             <StackPanel Width="334">
                 <Label Margin="5,10,5,0">Game:</Label>
-                <TextBox Margin="15,5,5,0" x:Name="txtGame" IsReadOnly="True"></TextBox>
+                <TextBox Margin="15,5,5,0" x:Name="txtGame" IsReadOnly="False"></TextBox>
             </StackPanel>
 
             <StackPanel Width="334">
                 <Label Margin="5,10,5,0">Mod Name:</Label>
-                <TextBox Margin="15,5,15,0" x:Name="txtModName" IsReadOnly="True" HorizontalAlignment="Left" Width="298"></TextBox>
+                <TextBox Margin="15,5,15,0" x:Name="txtModName" IsReadOnly="False" HorizontalAlignment="Left" Width="298"></TextBox>
             </StackPanel>
         </DockPanel>
 
         <DockPanel>
             <StackPanel Width="334">
                 <Label Margin="5,10,5,0">Submitter:</Label>
-                <TextBox Margin="15,5,5,0" x:Name="txtSubmitter" IsReadOnly="True"></TextBox>
+                <TextBox Margin="15,5,5,0" x:Name="txtSubmitter" IsReadOnly="False"></TextBox>
             </StackPanel>
 
             <StackPanel Width="334" Margin="0,0,0,0">
                 <Label Margin="5,10,5,0">Version:</Label>
-                <TextBox Margin="15,5,15,0" x:Name="txtVersion" IsReadOnly="True" HorizontalAlignment="Left" Width="298"></TextBox>
+                <TextBox Margin="15,5,15,0" x:Name="txtVersion" IsReadOnly="False" HorizontalAlignment="Left" Width="298"></TextBox>
             </StackPanel>
         </DockPanel>
 
@@ -56,7 +56,7 @@
         <ComboBox x:Name="cboFiles" Width="607" Margin="0,5,0,0" SelectedValuePath="Key" DisplayMemberPath="Value.filename"/>
         <Button x:Name="btnDownload" Content="Download Mod" Margin="10,32,10,0" Height="47" Click="btnDownload_Click"/>
 
-        <TextBox x:Name="txtProgress" Margin="0,20,0,0" Text="" IsReadOnly="True" TextWrapping="Wrap" Width="642" Height="129"></TextBox>
+        <TextBox x:Name="txtProgress" Margin="0,20,0,0" Text="" IsReadOnly="False" TextWrapping="Wrap" Width="642" Height="129"></TextBox>
 
     </StackPanel>
 </Window>

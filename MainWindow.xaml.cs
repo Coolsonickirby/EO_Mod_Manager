@@ -81,7 +81,9 @@ namespace EO_Mod_Manager
             Themes.UpdateForm(Themes.CURRENT_THEME, this);
 
             this.Title += $" - {App.APP_VERSION}";
-        }
+
+			RefreshData();
+		}
 
         private Game.GameType GetDRMType(string path)
         {
@@ -199,14 +201,19 @@ namespace EO_Mod_Manager
             settings.ShowDialog();
         }
 
-        private void cboGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selected_game = (Game)(cboGames.SelectedItem);
-            current_mods = selected_game.GameMods;
-            dataMods.ItemsSource = current_mods;
-        }
+		private void cboGames_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			selected_game = (Game)(cboGames.SelectedItem);
+			current_mods = selected_game.GameMods;
+			dataMods.ItemsSource = current_mods;
+			if (selected_game != null) 
+			{
+				dataMods.CellEditEnding -= dataMods_CellEditEnding; // Remove
+				dataMods.CellEditEnding += dataMods_CellEditEnding; // Attach you fuck
+			}
+		}
 
-        private void StartInstall()
+		private void StartInstall()
         {
             InstallProgress progressWindow = new InstallProgress(selected_game)
             {
@@ -251,16 +258,48 @@ namespace EO_Mod_Manager
             dataMods.ItemsSource = current_mods;
         }
 
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            selected_game.Refresh();
-            current_mods = selected_game.GameMods;
-            dataMods.ItemsSource = current_mods;
-        }
+		protected override void OnContentRendered(EventArgs e)
+		{
+			base.OnContentRendered(e);
+
+			// Fix the ui
+			RefreshData();
+
+			// Enable button because its needed for some reason?
+			btnRefresh.IsEnabled = true;
+		}
+
+		private void btnRefresh_Click(object sender, RoutedEventArgs e)
+		{
+			RefreshData();
+		}
+
+		private void RefreshData()
+		{
+			selected_game.Refresh();
+			current_mods = selected_game.GameMods;
+			dataMods.ItemsSource = current_mods;
+		}
+
 		private void Naoto_Window(object sender, RoutedEventArgs e)
 		{
 			double maxWindowWidth = SystemParameters.WorkArea.Width * 1; //resize to whatever you want 1 = main monitor size, so 0.5 for half, 2 for double, etc
 			this.MaxWidth = maxWindowWidth;
+		}
+
+		private void dataMods_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+		{
+			Mod editedMod = (Mod)dataMods.SelectedItem;
+			ModConfig newConfig = new ModConfig
+			{
+				name = editedMod.Name,
+				author = editedMod.Author,
+				version = editedMod.Version,
+				description = editedMod.Description
+			};
+
+			// Call the EditModConfig method to save the changes
+			selected_game.EditModConfig(editedMod, newConfig);
 		}
 	}
 }

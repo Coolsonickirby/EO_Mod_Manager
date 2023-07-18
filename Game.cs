@@ -486,5 +486,39 @@ namespace EO_Mod_Manager
             }
             this.textProgress.Report("Mods installation complete!");
         }
-    }
+
+		public void EditModConfig(Mod mod, ModConfig newConfig)
+		{
+			// Update the mod's configuration
+			mod.Name = newConfig.name;
+			mod.Author = newConfig.author;
+			mod.Version = newConfig.version;
+			mod.Description = newConfig.description;
+
+			// Find path
+			string modFolderPath = Path.Combine(mod.mod_path, Game.MODS_FOLDER);
+			string configFilePath = Path.Combine(modFolderPath, ModConfig.CONFIG_FILE);
+
+			// Load the current mod configuration
+			ModConfig existingConfig = ModConfig.LoadFromModPath(modFolderPath) ?? new ModConfig();
+
+			// Update mod config
+			existingConfig.name = newConfig.name;
+			existingConfig.author = newConfig.author;
+			existingConfig.version = newConfig.version;
+			existingConfig.description = newConfig.description;
+
+			// Serialize the updated configuration
+			string serializedConfig = JsonSerializer.Serialize(existingConfig);
+
+			
+			string parentDirectory = Directory.GetParent(modFolderPath).FullName;
+
+			
+			Directory.CreateDirectory(parentDirectory);
+
+			// Save the updated configuration to the parent directory because im too lazy to fix it saving in new thing
+			File.WriteAllText(Path.Combine(parentDirectory, ModConfig.CONFIG_FILE), serializedConfig);
+		}
+	}
 }
