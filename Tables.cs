@@ -529,7 +529,7 @@ Etrian Odyssey_Data\StreamingAssets\aa\StandaloneWindows64\resultcharaimgs_asset
 Etrian Odyssey_Data\StreamingAssets\aa\StandaloneWindows64\resultcharaimgs_assets_resultcharaimgs\battle_result-guildcard_swordman_03.png_89ac851b70768b8fc190d7371bf85574.bundle
 Etrian Odyssey_Data\StreamingAssets\aa\StandaloneWindows64\resultcharaimgs_assets_resultcharaimgs\battle_result-guildcard_swordman_04.png_dbc6afd88e63db0eabba28673fed3eeb.bundle
 Etrian Odyssey_Data\StreamingAssets\steam\packageconfig
-Etrian Odyssey_Data\StreamingAssets\steam\packageconfig.manifest".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\sq3data_assets_all_f89745c69ae291461116ae8f3af71156.bundle".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         public static List<string> NO_DRM_FILE_TABLE = @"Etrian Odyssey_Data\il2cpp_data
 Etrian Odyssey_Data\Plugins
 Etrian Odyssey_Data\Resources
@@ -1051,6 +1051,6 @@ Etrian Odyssey_Data\StreamingAssets\aa\StandaloneWindows64\resultcharaimgs_asset
 Etrian Odyssey_Data\StreamingAssets\aa\StandaloneWindows64\resultcharaimgs_assets_resultcharaimgs\battle_result-guildcard_swordman_03.png_89ac851b70768b8fc190d7371bf85574.bundle
 Etrian Odyssey_Data\StreamingAssets\aa\StandaloneWindows64\resultcharaimgs_assets_resultcharaimgs\battle_result-guildcard_swordman_04.png_dbc6afd88e63db0eabba28673fed3eeb.bundle
 Etrian Odyssey_Data\StreamingAssets\steam\packageconfig
-Etrian Odyssey_Data\StreamingAssets\steam\packageconfig.manifest".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+C:\Program Files (x86)\Steam\New folder\steamapps\common\EO3HD\Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\sq3data_assets_all_18cdeebcd041b65f160e098a4c1cc50f.bundle".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
 }
