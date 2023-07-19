@@ -460,7 +460,7 @@ namespace EO_Mod_Manager
             {
                 var source_file = GetSourceFileFromDataPath(entry.Key);
                 var source_path = Path.Combine(this.GamePath, source_file);
-                // If its not a bundle file, then we can't merge it. Meaning we just copy the highest priority mod
+                // If its not a bundle file, then we can't merge it. Meaning we just copy the highest priority mod :Adachifalse:
 
                 var ext = Path.GetExtension(source_file);
 

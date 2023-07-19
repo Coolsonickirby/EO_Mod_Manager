@@ -21,6 +21,8 @@
             <ComboBox x:Name="cboGames" DisplayMemberPath="GameName" SelectionChanged="cboGames_SelectionChanged" />
         </StackPanel>
 
+        <Button x:Name="btnOpenRssFeed" Content="Recent GB Mods" Height="30" Width="120" Click="btnOpenRssFeed_Click" Margin="10" Grid.Row="0" HorizontalAlignment="Right"/>
+
         <DataGrid x:Name="dataMods" Grid.Row="1" AutoGenerateColumns="False" CanUserResizeRows="False" Margin="0,0,55,0" CellEditEnding="dataMods_CellEditEnding">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="" Binding="{Binding enabled}" CanUserSort="False" Width="Auto"/>

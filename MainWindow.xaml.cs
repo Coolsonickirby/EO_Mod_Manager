@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YourNamespace;
 
 namespace EO_Mod_Manager
 {
@@ -300,6 +301,35 @@ namespace EO_Mod_Manager
 
 			// Call the EditModConfig method to save the changes
 			selected_game.EditModConfig(editedMod, newConfig);
+		}
+
+		private void btnOpenRssFeed_Click(object sender, RoutedEventArgs e)
+		{
+			string rssFeedLink = GetRssFeedLinkForSelectedGame();
+
+			if (string.IsNullOrEmpty(rssFeedLink))
+			{
+				MessageBox.Show("Selected game does not have an associated RSS feed link.");
+				return;
+			}
+
+			RSSWindow rssWindow = new RSSWindow(rssFeedLink);
+			rssWindow.Show();
+		}
+
+		private string GetRssFeedLinkForSelectedGame()
+		{
+			switch (selected_game.key)
+			{
+				case "eo1_data":
+					return "https://api.gamebanana.com/Rss/New?gameid=18479&itemtype=Mod";
+				case "eo2_data":
+					return "https://api.gamebanana.com/Rss/New?gameid=18480&itemtype=Mod";
+				case "eo3_data":
+					return "https://api.gamebanana.com/Rss/New?gameid=18481&itemtype=Mod";
+				default:
+					return null;
+			}
 		}
 	}
 }

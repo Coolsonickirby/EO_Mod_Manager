@@ -15,7 +15,7 @@ namespace EO_Mod_Manager
     public partial class App : Application
     {
         private static Mutex _mutex = null;
-        public const string APP_VERSION = "2.2.1";
+        public const string APP_VERSION = "4.0.0";
         public const string APP_UPDATE_ENDPOINT = "https://api.github.com/repos/Coolsonickirby/EO_Mod_Manager/releases";
         public const string OLD_FOLDER = "old";
         protected override void OnStartup(StartupEventArgs e)
