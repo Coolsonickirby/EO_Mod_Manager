@@ -54,7 +54,7 @@ namespace YourNamespace
 							Title = item.Element("title").Value,
 							Link = item.Element("link").Value,
 							Image = GetImageFromUrl(item.Element("image").Value),
-							ModId = GetModIdFromLink(item.Element("link").Value) // Set the ModId 
+							ModId = GetModIdFromLink(item.Element("link").Value) 
 						};
 
 						items.Add(rssItem);
@@ -95,7 +95,7 @@ namespace YourNamespace
 
 		private int GetModIdFromLink(string link)
 		{
-			// Parse the link and get the mod ID
+			// Fuck you
 			int startIndex = link.LastIndexOf("/") + 1;
 			int endIndex = link.Length;
 			string modIdStr = link.Substring(startIndex, endIndex - startIndex);
@@ -136,7 +136,7 @@ namespace YourNamespace
 			public string Title { get; set; }
 			public string Link { get; set; }
 			public ImageSource Image { get; set; }
-			public int ModId { get; set; } // Add this property
+			public int ModId { get; set; } 
 		}
 	}
 }
