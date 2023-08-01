@@ -697,6 +697,7 @@ Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\se_assets_se_39edb7
 Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\sq3data_assets_all_f89745c69ae291461116ae8f3af71156.bundle
 Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\townprefab_assets_all_948f3cecd2214c5ccc9a1887f7311415.bundle
 Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\tutorial_assets_all_0001088f785f01c45d9721e3ab49309a.bundle
+Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\sq3data_assets_all_82fbc019dde0028f47f935443a72843d.bundle
 Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\sq3data_assets_all_f89745c69ae291461116ae8f3af71156.bundle".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         public static List<string> NO_DRM_FILE_TABLE = @"Etrian Odyssey_Data\il2cpp_data
 Etrian Odyssey_Data\Plugins
@@ -1387,6 +1388,7 @@ Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\se_assets_se_39edb7
 Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\sq3data_assets_all_18cdeebcd041b65f160e098a4c1cc50f.bundle
 Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\townprefab_assets_all_6d3e69b8a231268ef1a98f22aefe1120.bundle
 Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\tutorial_assets_all_0001088f785f01c45d9721e3ab49309a.bundle
+Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\sq3data_assets_all_f89745c69ae291461116ae8f3af71156.bundle
 C:\Program Files (x86)\Steam\New folder\steamapps\common\EO3HD\Etrian Odyssey 3_Data\StreamingAssets\aa\StandaloneWindows64\sq3data_assets_all_18cdeebcd041b65f160e098a4c1cc50f.bundle".Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
 }
