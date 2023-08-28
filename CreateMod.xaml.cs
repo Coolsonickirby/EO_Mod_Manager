@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 
-namespace Concursus
+namespace EO_Mod_Manager
 {
     /// <summary>
     /// Interaction logic for CreateMod.xaml

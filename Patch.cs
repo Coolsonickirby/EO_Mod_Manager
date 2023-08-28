@@ -9,7 +9,7 @@ using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Json.Nodes;
 
-namespace Concursus
+namespace EO_Mod_Manager
 {
     class Patch
     {

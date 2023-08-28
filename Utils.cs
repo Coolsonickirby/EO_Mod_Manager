@@ -9,7 +9,7 @@ using RestSharp;
 using System.Text.Json.Nodes;
 using System.Text.Json;
 
-namespace Concursus
+namespace EO_Mod_Manager
 {
     public class Utils
     {

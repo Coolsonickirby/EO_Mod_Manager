@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Concursus
+namespace EO_Mod_Manager
 {
     public class Tables
     {

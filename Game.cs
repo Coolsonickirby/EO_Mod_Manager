@@ -9,7 +9,7 @@ using Force.Crc32;
 using System.Text.Json;
 using System.Windows;
 
-namespace Concursus
+namespace EO_Mod_Manager
 {
     public class Game
     {
@@ -105,23 +105,14 @@ namespace Concursus
             Install();
         }
 
-		private void PatchGame()
-		{
-			string target_folder = Path.Join(this.GamePath, this.GameFolderDataName, "StreamingAssets", "aa");
-			string catalog_json = Path.Join(target_folder, "catalog.json");
+        private void PatchGame()
+        {
+            string target_folder = Path.Join(this.GamePath, this.GameFolderDataName, "StreamingAssets", "aa");
+            string catalog_json = Path.Join(target_folder, "catalog.json");
+            Patch.PatchCRC(catalog_json, catalog_json);
+        }
 
-			if (File.Exists(catalog_json))
-			{
-				Patch.PatchCRC(catalog_json, catalog_json);
-			}
-			else
-			{
-				//MessageBox.Show($"The file {catalog_json} does not exist. Patching operation cannot be performed.");
-			}
-		}
-
-
-		private void RestoreBackup()
+        private void RestoreBackup()
         {
             string backup_dir = Path.Combine(this.GamePath, Game.BACKUP_FOLDER);
             if (!Directory.Exists(backup_dir))
@@ -414,7 +405,7 @@ namespace Concursus
         public void Refresh()
         {
             ObservableCollection<Mod> new_mods = Game.GetModsFromPath(this.GamePath);
-			List<string> old_mods_name = this.GameMods.Select(e => e.folder_name).ToList();
+            List<string> old_mods_name = this.GameMods.Select(e => e.folder_name).ToList();
             List<string> new_mods_name = new_mods.Select(e => e.folder_name).ToList();
             List<string> new_mods_only = new_mods_name.Except(old_mods_name).ToList();
             List<string> mods_to_remove = old_mods_name.Where(e => !new_mods_name.Contains(e)).ToList();

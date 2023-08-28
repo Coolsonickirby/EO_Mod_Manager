@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Concursus
+namespace EO_Mod_Manager
 {
     public class Themes
     {

@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
-namespace Concursus.Classes
+namespace EO_Mod_Manager.Classes
 {
 	public class GamebananaMod
 	{

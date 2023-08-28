@@ -12,10 +12,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Concursus.Classes;
+using EO_Mod_Manager.Classes;
 using SevenZipExtractor;
 
-namespace Concursus
+namespace EO_Mod_Manager
 {
     /// <summary>
     /// Interaction logic for GBModPrompt.xaml
