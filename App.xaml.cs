@@ -15,12 +15,11 @@ namespace EO_Mod_Manager
     public partial class App : Application
     {
         private static Mutex _mutex = null;
-        public const string APP_VERSION = "4.1.0";
-        public const string APP_UPDATE_ENDPOINT = "https://api.github.com/repos/Coolsonickirby/EO_Mod_Manager/releases";
+        public const string APP_VERSION = "0.1.0";
+        public const string APP_UPDATE_ENDPOINT = "https://api.github.com/repos/Coolsonickirby/EO_Mod_Manager";
         public const string OLD_FOLDER = "old";
         protected override void OnStartup(StartupEventArgs e)
         {
-            this.Dispatcher.UnhandledException += OnDispatcherUnhandledException;
 
             if (System.IO.Directory.Exists(OLD_FOLDER))
                 System.IO.Directory.Delete(OLD_FOLDER, true);

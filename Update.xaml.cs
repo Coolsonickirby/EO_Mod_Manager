@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace EO_Mod_Manager
+namespace Concursus
 {
     /// <summary>
     /// Interaction logic for Update.xaml

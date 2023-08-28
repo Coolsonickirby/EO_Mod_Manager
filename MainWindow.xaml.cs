@@ -3,25 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using YourNamespace;
+using Newtonsoft.Json;
+using System.Drawing;
 
-namespace EO_Mod_Manager
+namespace Concursus
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
     {
         List<Game> games = new List<Game>();
         public static Game selected_game;
@@ -66,8 +59,12 @@ namespace EO_Mod_Manager
             //    enabled = false
             //});
 
-            if(!OnePathSet()) // If no game path is set
+            SetupGames();
+
+            if (!OnePathSet()) { 
                 ShowSettings(false);
+                SetupGames();
+            } // If no game path is set
             if (!OnePathSet()) // If no game path is set and we already asked the user for one but they refused, then just close
                 Environment.Exit(0);
 
@@ -101,46 +98,54 @@ namespace EO_Mod_Manager
             }
         }
 
-        private void SetupGames()
-        {
-            if (Directory.Exists(Properties.Settings.Default.EO1_Path))
-                games.Add(new Game()
-                {
-                    key = "eo1_data",
-                    GameName = "Etrian Odyssey HD",
-                    GameFolderDataName = "Etrian Odyssey_Data",
-                    GamePath = Properties.Settings.Default.EO1_Path,
-                    GameExecutable = Properties.Settings.Default.EO1_EXE,
-                    Type = GetDRMType(System.IO.Path.Combine(Properties.Settings.Default.EO1_Path, "GameAssembly.dll")),
-                    GameMods = Game.GetModsFromPath(Properties.Settings.Default.EO1_Path)
-                });
-            if (Directory.Exists(Properties.Settings.Default.EO2_Path))
-                games.Add(new Game()
-                {
-                    key = "eo2_data",
-                    GameName = "Etrian Odyssey II HD",
-                    GameFolderDataName = "Etrian Odyssey 2_Data",
-                    GamePath = Properties.Settings.Default.EO2_Path,
-                    GameExecutable = Properties.Settings.Default.EO2_EXE,
-                    Type = GetDRMType(System.IO.Path.Combine(Properties.Settings.Default.EO2_Path, "GameAssembly.dll")),
-                    GameMods = Game.GetModsFromPath(Properties.Settings.Default.EO2_Path)
-                });
-            if (Directory.Exists(Properties.Settings.Default.EO3_Path))
-                games.Add(new Game()
-                {
-                    key = "eo3_data",
-                    GameName = "Etrian Odyssey III HD",
-                    GameFolderDataName = "Etrian Odyssey 3_Data",
-                    GamePath = Properties.Settings.Default.EO3_Path,
-                    GameExecutable = Properties.Settings.Default.EO3_EXE,
-                    Type = GetDRMType(System.IO.Path.Combine(Properties.Settings.Default.EO3_Path, "GameAssembly.dll")),
-                    GameMods = Game.GetModsFromPath(Properties.Settings.Default.EO3_Path)
-                });
-            foreach (Game game in games)
-                game.LoadDataFromKey();
-        }
+		private void SetupGames()
+		{
+			// Clear the existing list of games
+			games.Clear();
 
-        private void btnMoveDown_Click(object sender, RoutedEventArgs e)
+			// Path to the "GameData" folder
+			string gameDataFolderPath = "GameData";
+
+			// Check if the "GameData" folder exists
+			if (Directory.Exists(gameDataFolderPath))
+			{
+				// Get all JSON files in the "GameData" folder
+				string[] jsonFiles = Directory.GetFiles(gameDataFolderPath, "*.json");
+
+				foreach (string jsonFile in jsonFiles)
+				{
+					try
+					{
+						// Read the JSON content from the file
+						string jsonContent = File.ReadAllText(jsonFile);
+
+						// Deserialize the JSON content into a List<Game> object
+						List<Game> gameList = JsonConvert.DeserializeObject<List<Game>>(jsonContent);
+
+						for (int i = 0; i < gameList.Count; i++)
+						{
+							gameList[i].GameMods = Game.GetModsFromPath(gameList[i].GamePath);
+						}
+
+						// Add the game(s) to the games list
+						games.AddRange(gameList);
+					}
+					catch (Exception ex)
+					{
+						// Handle any errors that occur during deserialization
+						MessageBox.Show($"Error reading or deserializing {jsonFile}: {ex.Message}");
+					}
+				}
+			}
+
+			// Load additional data for each game
+			foreach (Game game in games)
+			{
+				game.LoadDataFromKey();
+			}
+		}
+
+		private void btnMoveDown_Click(object sender, RoutedEventArgs e)
         {
             if (dataMods.SelectedIndex == -1)
                 return;
@@ -149,9 +154,7 @@ namespace EO_Mod_Manager
 
         private bool OnePathSet()
         {
-            return Directory.Exists(Properties.Settings.Default.EO1_Path)
-                || Directory.Exists(Properties.Settings.Default.EO2_Path)
-                || Directory.Exists(Properties.Settings.Default.EO3_Path);
+            return games.Count >= 1;
         }
 
 

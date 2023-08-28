@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace EO_Mod_Manager
+namespace Concursus
 {
     public class Mod
     {
