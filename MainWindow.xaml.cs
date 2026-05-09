@@ -322,11 +322,11 @@ namespace EO_Mod_Manager
 			switch (selected_game.key)
 			{
 				case "eo1_data":
-					return "https://api.gamebanana.com/Rss/New?gameid=18479&itemtype=Mod";
+					return "https://api.gamebanana.com/Rss/New?gameid=18479&itemtype=Mod&perpage=50";
 				case "eo2_data":
-					return "https://api.gamebanana.com/Rss/New?gameid=18480&itemtype=Mod";
+					return "https://api.gamebanana.com/Rss/New?gameid=18480&itemtype=Mod&perpage=50";
 				case "eo3_data":
-					return "https://api.gamebanana.com/Rss/New?gameid=18481&itemtype=Mod";
+					return "https://api.gamebanana.com/Rss/New?gameid=18481&itemtype=Mod&perpage=50";
 				default:
 					return null;
 			}

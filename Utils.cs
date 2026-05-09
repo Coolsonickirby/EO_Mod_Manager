@@ -1,10 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using RestSharp;
 using System.Text.Json.Nodes;
 using System.Text.Json;
@@ -17,7 +13,7 @@ namespace EO_Mod_Manager
         public static void RegisterProtocol(string protocol, string title) {
             if(protocol == String.Empty)
                 return;
-            string exe_path = System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe");
+            string exe_path = Process.GetCurrentProcess().MainModule.FileName;
             RegistryKey key = Registry.CurrentUser.CreateSubKey($"Software\\Classes\\{protocol}");
 
             key.SetValue(String.Empty, $"URL: {title}");

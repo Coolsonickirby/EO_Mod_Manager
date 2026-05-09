@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace EO_Mod_Manager.Classes
 {
@@ -48,16 +45,22 @@ namespace EO_Mod_Manager.Classes
 			mod.description = (string)jsonObj[3].AsValue();
 
 			mod.files = new Dictionary<string, Files>();
-
-			foreach (var item in (JsonObject)jsonObj[4].AsObject())
-				mod.files.Add(item.Key, new Files
+			
+			var filesNode = jsonObj[4];
+			if (filesNode is JsonObject filesObj)
+			{
+				foreach (var item in filesObj)
 				{
-					filename = (string)item.Value["_sFile"].AsValue(),
-					download_link = (string)item.Value["_sDownloadUrl"].AsValue(),
-					description = (string)item.Value["_sDescription"].AsValue(),
-					md5 = (string)item.Value["_sMd5Checksum"].AsValue(),
-					filesize = (int)item.Value["_nFilesize"].AsValue(),
-				});
+					mod.files.Add(item.Key, new Files
+					{
+						filename = item.Value["_sFile"]?.GetValue<string>() ?? string.Empty,
+						download_link = item.Value["_sDownloadUrl"]?.GetValue<string>() ?? string.Empty,
+						description = item.Value["_sDescription"]?.GetValue<string>() ?? string.Empty,
+						md5 = item.Value["_sMd5Checksum"]?.GetValue<string>() ?? string.Empty,
+						filesize = item.Value["_nFilesize"]?.GetValue<int>() ?? 0,
+					});
+				}
+			}
 
 			mod.images = new List<string>();
 

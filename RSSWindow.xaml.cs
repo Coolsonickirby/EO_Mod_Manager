@@ -44,7 +44,15 @@ namespace YourNamespace
 			{
 				if (e.Error == null && !e.Cancelled)
 				{
-					XDocument xdoc = XDocument.Parse(e.Result);
+					// Remove the <script> garbage that gets injected after the RSS. 
+					string xml = System.Text.RegularExpressions.Regex.Replace(
+						e.Result,
+						@"</rss>.*",
+						"</rss>",
+						System.Text.RegularExpressions.RegexOptions.Singleline
+					);
+					
+					XDocument xdoc = XDocument.Parse(xml);
 					List<RssItem> items = new List<RssItem>();
 
 					foreach (XElement item in xdoc.Descendants("item"))

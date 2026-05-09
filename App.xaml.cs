@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace EO_Mod_Manager
@@ -15,7 +10,7 @@ namespace EO_Mod_Manager
     public partial class App : Application
     {
         private static Mutex _mutex = null;
-        public const string APP_VERSION = "4.1.0";
+        public const string APP_VERSION = "4.1.1";
         public const string APP_UPDATE_ENDPOINT = "https://api.github.com/repos/Coolsonickirby/EO_Mod_Manager/releases";
         public const string OLD_FOLDER = "old";
         protected override void OnStartup(StartupEventArgs e)
@@ -46,7 +41,7 @@ namespace EO_Mod_Manager
 
         void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            string errorMessage = string.Format("An unhandled exception occurred: {0}", e.Exception.Message);
+            string errorMessage = string.Format("An unhandled exception occurred: {0}", e.Exception);
             MessageBox.Show(errorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             if (!(e is System.Windows.Markup.XamlParseException))
                 e.Handled = true;
